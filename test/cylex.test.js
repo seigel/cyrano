@@ -12,7 +12,7 @@ describe('#tokenize', () => {
         expect(tokenize("hi|there|third one|CASE")).toEqual(["hi", "there", "third one", "CASE"]);
     });
 
-    test('something that is closer to cyrano', () => {
+    test('something that is closer to cyrano preserving case and spaces', () => {
         expect(
             tokenize("|EFP2|DISP|RED|24|EIM|T32|1|32|14:45|3:00|33| IVANOV Sidor|CAN|||531|LIMON Jua|FRA|||")
         ).toEqual(
