@@ -1,0 +1,32 @@
+{
+  "name": "cyrano",
+  "version": "1.0.0",
+  "description": "Freeing the information contained in networked fencing scoring machines by providing an ecosystem of services that allows everyone to set up events with more automation.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "clean": "rm -rf ./node_modules && npm i",
+    "build": "./node_modules/.bin/esbuild --platform=node --minify --bundle index.js --outdir=build",
+    "start": "node ./build/index.js",
+    "test": "node --experimental-vm-modules --input-type=module node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seigel/cyrano.git"
+  },
+  "keywords": [
+    "cyrano",
+    "fencing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seigel/cyrano/issues"
+  },
+  "homepage": "https://github.com/seigel/cyrano#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "esbuild": "^0.14.36",
+    "jest": "^27.5.1"
+  }
+}
