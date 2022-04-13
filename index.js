@@ -1,6 +1,8 @@
 import dgram from 'dgram';
 import {Buffer} from 'buffer';
+import {tokenize} from "./src/protocol/cylex";
 
+const DEFAULT_UDP_PORT = 50100;
 // ROUGH TESTING -- UDP testing
 const server = dgram.createSocket('udp4');
 
@@ -11,6 +13,7 @@ server.on('error', (err) => {
 
 server.on('message', (msg, rinfo) => {
     console.log(`server got: |${msg}| from ${rinfo.address}:${rinfo.port}`);
+    console.log(`tokens: ${tokenize(msg)}`);
 });
 
 server.on('listening', () => {
@@ -18,10 +21,10 @@ server.on('listening', () => {
     console.log(`server listening ${address.address}:${address.port}`);
 });
 
-server.bind(41234);
+server.bind(DEFAULT_UDP_PORT);
 
-const message = Buffer.from('Some bytes');
+const message = Buffer.from('|Some|bytes|');
 const client = dgram.createSocket('udp4');
-client.send(message, 41234, 'localhost', (err) => {
+client.send(message, DEFAULT_UDP_PORT, 'localhost', (err) => {
     client.close();
 });
