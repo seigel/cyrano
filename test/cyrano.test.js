@@ -1,4 +1,5 @@
 import {process} from "../src/protocol/cyrano";
+import {DISP_COMMAND} from "../src/commands/disp";
 
 const DISP_COMMAND_EXAMPLE = "|EFP2|DISP|RED|24|EIM|T32|1|32|14:45|3:00|33| IVANOV Sidor|CAN|||531|LIMON Jua|FRA|||";
 
@@ -15,7 +16,7 @@ describe('#process', () => {
         expect(
             process(DISP_COMMAND_EXAMPLE)["command"]
         ).toEqual(
-            "DISP"
+            DISP_COMMAND
         );
     });
 
