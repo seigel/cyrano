@@ -1,6 +1,6 @@
 // noinspection SpellCheckingInspection
 export const DISP_COMMAND = "DISP";
-const LENGTH = 19;
+const LENGTH = 18;
 
 export const register = (commandDictionary) => {
     commandDictionary[DISP_COMMAND] = parse;
@@ -35,13 +35,6 @@ const parse = (tokens) => {
             "teamInfo": tokens.shift(),
             "teamId": tokens.shift(),
             "teamMemberName": tokens.shift(),
-        },
-        "stringify": function () {
-            return stringify(this)
         }
     };
-}
-
-const stringify = (dictionary) => {
-    return "";
 }

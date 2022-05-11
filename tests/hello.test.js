@@ -22,48 +22,69 @@ describe('#parse', () => {
     const parse = register({})[HELLO_COMMAND];
     let parsedResult = null;
 
-    describe("hello command with one parameter", () => {
-        beforeEach(() => {
-            const tokens = [...EXAMPLE_DISP_TOKENS];
-            parsedResult = parse(tokens);
+    describe('invalid length of tokens', function () {
+
+        test('problem with token length for this parser', () => {
+            expect(
+                () => {
+                    parse(["HI", "THERE", "MONKEY"]);
+                }
+            ).toThrowError("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
         });
 
-        test('has the command in the result', () => {
+        test('problem with token length for this parser', () => {
             expect(
-                parsedResult['command']
-            ).toEqual(
-                HELLO_COMMAND
-            )
-        });
-
-        test('piste code', () => {
-            expect(
-                parsedResult['pisteCode']
-            ).toEqual(
-                "RED"
-            )
+                () => {
+                    parse(null);
+                }
+            ).not.toThrowError("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
         });
     });
-    describe("hello command with no parameter", () => {
-        beforeEach(() => {
-            const tokens = [...EMPTY_EXAMPLE_DISP_TOKENS];
-            parsedResult = parse(tokens);
-        });
 
-        test('has the command in the result', () => {
-            expect(
-                parsedResult['command']
-            ).toEqual(
-                HELLO_COMMAND
-            )
-        });
+    describe("valid parameters", () => {
+        describe("hello command with one parameter", () => {
+            beforeEach(() => {
+                const tokens = [...EXAMPLE_DISP_TOKENS];
+                parsedResult = parse(tokens);
+            });
 
-        test('piste code', () => {
-            expect(
-                parsedResult['pisteCode']
-            ).toEqual(
-                ""
-            )
+            test('has the command in the result', () => {
+                expect(
+                    parsedResult['command']
+                ).toEqual(
+                    HELLO_COMMAND
+                )
+            });
+
+            test('piste code', () => {
+                expect(
+                    parsedResult['pisteCode']
+                ).toEqual(
+                    "RED"
+                )
+            });
+        });
+        describe("hello command with no parameter", () => {
+            beforeEach(() => {
+                const tokens = [...EMPTY_EXAMPLE_DISP_TOKENS];
+                parsedResult = parse(tokens);
+            });
+
+            test('has the command in the result', () => {
+                expect(
+                    parsedResult['command']
+                ).toEqual(
+                    HELLO_COMMAND
+                )
+            });
+
+            test('piste code', () => {
+                expect(
+                    parsedResult['pisteCode']
+                ).toEqual(
+                    ""
+                )
+            });
         });
     });
 });

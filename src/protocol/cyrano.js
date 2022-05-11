@@ -9,6 +9,7 @@ export const process = (rawMessage) => {
     const protocolToken = tokens.shift();
     if (firstToken === "" && protocolToken === PROTOCOL) {
         const command = tokens.shift();
+        tokens.pop();
         const parse = commandDictionary[command]
         return parse([...tokens]);
     } else {

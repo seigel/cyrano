@@ -9,21 +9,15 @@ export const register = (commandDictionary) => {
 }
 
 const parse = (tokens) => {
-    const length = (tokens || []).length;
+    const localTokens = tokens || [];
+    const length = localTokens.length;
 
-    if (length < MIN_LENGTH && length > MAX_LENGTH) {
+    if (length < MIN_LENGTH || length > MAX_LENGTH) {
         throw new Error(`Incompatible command tokens for >${HELLO_COMMAND}<. Expected ${MIN_LENGTH} or ${MAX_LENGTH}, Got: ${length}`);
     }
 
     return {
         "command": HELLO_COMMAND,
-        "pisteCode": tokens.shift() || "",
-        "stringify": function () {
-            return stringify(this)
-        }
+        "pisteCode": localTokens.shift() || ""
     };
-}
-
-const stringify = (dictionary) => {
-    return "";
 }
