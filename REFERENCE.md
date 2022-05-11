@@ -1,5 +1,5 @@
 # Cyrano 2.0 -- Ethernet Fencing Protocol
-
+It is exceedingly hard to find online references to this specification.
 
 # General Reference for Setup and Testing
 
