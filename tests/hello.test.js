@@ -1,5 +1,4 @@
-import {HELLO_COMMAND} from "../src/commands/hello";
-import {register} from "../src/commands/hello";
+import {HELLO_COMMAND, register} from "../src/commands/hello";
 
 const EXAMPLE_DISP_TOKENS = [
     'RED'
@@ -23,7 +22,7 @@ describe('#parse', () => {
     const parse = register({})[HELLO_COMMAND];
     let parsedResult = null;
 
-    describe("hello command with one parameter",() => {
+    describe("hello command with one parameter", () => {
         beforeEach(() => {
             const tokens = [...EXAMPLE_DISP_TOKENS];
             parsedResult = parse(tokens);
@@ -45,7 +44,7 @@ describe('#parse', () => {
             )
         });
     });
-    describe("hello command with no parameter",() => {
+    describe("hello command with no parameter", () => {
         beforeEach(() => {
             const tokens = [...EMPTY_EXAMPLE_DISP_TOKENS];
             parsedResult = parse(tokens);
