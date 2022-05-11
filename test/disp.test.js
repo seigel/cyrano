@@ -3,8 +3,8 @@ import {register} from "../src/commands/disp";
 
 const EXAMPLE_DISP_TOKENS = [
         'RED', '24', 'EIM', 'T32', '1', '32', "14:45", "3:00",
-        "33", " IVANOV Sidor", 'CAN', '', '',
-        '531', 'LIMON Jua', 'FRA', '', '', ''
+        "33", " IVANOV Sidor", 'CAN', 'rightTeamId', 'rightTeamMemberName',
+        '531', 'LIMON Jua', 'FRA', 'leftTeamId', 'leftTeamMemberName', ''
     ]
 ;
 
@@ -24,7 +24,7 @@ describe('#parse', () => {
     const parse = register({})[DISP_COMMAND];
     let parsedResult = null;
 
-    beforeEach(()=>{
+    beforeEach(() => {
         const tokens = [...EXAMPLE_DISP_TOKENS];
         parsedResult = parse(tokens);
     });
@@ -75,4 +75,119 @@ describe('#parse', () => {
             "1"
         )
     });
+
+    test('bout Id', () => {
+        expect(
+            parsedResult['boutId']
+        ).toEqual(
+            "32"
+        )
+    });
+
+    test('begin time', () => {
+        expect(
+            parsedResult['beginTime']
+        ).toEqual(
+            "14:45"
+        )
+    });
+
+    test('stopwatch', () => {
+        expect(
+            parsedResult['stopwatch']
+        ).toEqual(
+            "3:00"
+        )
+    });
+
+    describe('right fencer', () => {
+        let rightFencer = null;
+        //         "33", " IVANOV Sidor", 'CAN', '', '',
+        beforeEach(() => {
+            rightFencer = parsedResult['rightFencer'];
+        });
+
+        test('right fencer id', () => {
+            expect(
+                rightFencer["id"]
+            ).toEqual(
+                "33"
+            )
+        });
+        test('name', () => {
+            expect(
+                rightFencer["name"]
+            ).toEqual(
+                " IVANOV Sidor"
+            )
+        });
+        test('team info', () => {
+            expect(
+                rightFencer["teamInfo"]
+            ).toEqual(
+                "CAN"
+            )
+        });
+
+        test('team id', () => {
+            expect(
+                rightFencer["teamId"]
+            ).toEqual(
+                "rightTeamId"
+            )
+        });
+
+        test('team Member Name', () => {
+            expect(
+                rightFencer["teamMemberName"]
+            ).toEqual(
+                "rightTeamMemberName"
+            )
+        });
+    });
+    describe('left fencer', () => {
+        let leftFencer = null;
+        beforeEach(() => {
+            leftFencer = parsedResult['leftFencer'];
+        });
+
+        test('fencer id', () => {
+            expect(
+                leftFencer["id"]
+            ).toEqual(
+                "531"
+            )
+        });
+        test('name', () => {
+            expect(
+                leftFencer["name"]
+            ).toEqual(
+                "LIMON Jua"
+            )
+        });
+        test('team info', () => {
+            expect(
+                leftFencer["teamInfo"]
+            ).toEqual(
+                "FRA"
+            )
+        });
+
+        test('team id', () => {
+            expect(
+                leftFencer["teamId"]
+            ).toEqual(
+                "leftTeamId"
+            )
+        });
+
+        test('team Member Name', () => {
+            expect(
+                leftFencer["teamMemberName"]
+            ).toEqual(
+                "leftTeamMemberName"
+            )
+        });
+    });
+
 })
