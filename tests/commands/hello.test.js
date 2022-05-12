@@ -1,4 +1,4 @@
-import {HELLO_COMMAND, register} from "../src/commands/hello";
+import {HELLO_COMMAND, register} from "../../src/commands/hello";
 
 const EXAMPLE_DISP_TOKENS = [
     'RED'

@@ -1,4 +1,4 @@
-import {tokenize} from "../src/protocol/cylex";
+import {tokenize} from "../../src/protocol/cylex";
 
 describe('#tokenize', () => {
     test('break input part using protocol divider |', () => {

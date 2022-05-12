@@ -1,4 +1,4 @@
-import {DISP_COMMAND, register} from "../src/commands/disp";
+import {DISP_COMMAND, register} from "../../src/commands/disp";
 
 const EXAMPLE_DISP_TOKENS = [
         'RED', '24', 'EIM', 'T32', '1', '32', "14:45", "3:00",

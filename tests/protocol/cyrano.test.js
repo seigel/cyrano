@@ -1,7 +1,7 @@
-import {process} from "../src/protocol/cyrano";
-import {DISP_COMMAND} from "../src/commands/disp";
-import {HELLO_COMMAND} from "../src/commands/hello";
-import {tokenize} from "../src/protocol/cylex";
+import {process} from "../../src/protocol/cyrano";
+import {DISP_COMMAND} from "../../src/commands/disp";
+import {HELLO_COMMAND} from "../../src/commands/hello";
+import {tokenize} from "../../src/protocol/cylex";
 
 const DISP_COMMAND_EXAMPLE = "|EFP2|DISP|RED|24|EIM|T32|1|32|14:45|3:00|33| IVANOV Sidor|CAN|||531|LIMON Jua|FRA|||";
 const HELLO_COMMAND_EXAMPLE = "|EFP2|HELLO|RED|";
