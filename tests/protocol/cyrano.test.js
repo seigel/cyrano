@@ -1,10 +1,13 @@
 import {process} from "../../src/protocol/cyrano";
 import {DISP_COMMAND} from "../../src/commands/disp";
 import {HELLO_COMMAND} from "../../src/commands/hello";
-import {tokenize} from "../../src/protocol/cylex";
+import {PING_COMMAND} from "../../src/commands/ping";
+import {STOP_COMMAND} from "../../src/commands/stop";
 
 const DISP_COMMAND_EXAMPLE = "|EFP2|DISP|RED|24|EIM|T32|1|32|14:45|3:00|33| IVANOV Sidor|CAN|||531|LIMON Jua|FRA|||";
 const HELLO_COMMAND_EXAMPLE = "|EFP2|HELLO|RED|";
+const PING_COMMAND_EXAMPLE = "|EFP2|PING|";
+const STOP_COMMAND_EXAMPLE = "|EFP2|STOP|";
 
 describe('#process', () => {
     test('unsupported protocol', () => {
@@ -28,6 +31,22 @@ describe('#process', () => {
             process(HELLO_COMMAND_EXAMPLE)["command"]
         ).toEqual(
             HELLO_COMMAND
+        );
+    });
+
+    test('extract command name for ping', () => {
+        expect(
+            process(PING_COMMAND_EXAMPLE)["command"]
+        ).toEqual(
+            PING_COMMAND
+        );
+    });
+
+    test('extract command name for ping', () => {
+        expect(
+            process(STOP_COMMAND_EXAMPLE)["command"]
+        ).toEqual(
+            STOP_COMMAND
         );
     });
 
