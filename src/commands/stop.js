@@ -11,7 +11,7 @@ const parse = (tokens) => {
     const localTokens = tokens || [];
     const length = localTokens.length;
 
-    if (length !== 0) {
+    if (length !== LENGTH) {
         throw new Error(`Incompatible command tokens for >${STOP_COMMAND}<. Expected ${LENGTH}, Got: ${length}`);
     }
 
