@@ -13,3 +13,6 @@ graph TD
     A --> D(Event Display Monitors)
     B --> D
  ```
+ 
+ November 13, 2022: Update
+ - Moving some updates to a quick blog > [prose blog](https://cyrano.prose.sh)
