@@ -3,6 +3,7 @@ require("./boutstop").register(dictionary);
 require("./broken").register(dictionary);
 require("./disp").register(dictionary);
 require("./hello").register(dictionary);
+require("./info").register(dictionary);
 require("./msg").register(dictionary);
 require("./next").register(dictionary);
 require("./ping").register(dictionary);
