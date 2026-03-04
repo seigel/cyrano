@@ -1,4 +1,5 @@
 const dictionary = {}
+require("./boutstop").register(dictionary);
 require("./disp").register(dictionary);
 require("./hello").register(dictionary);
 require("./ping").register(dictionary);
