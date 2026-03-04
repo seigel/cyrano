@@ -8,6 +8,7 @@
     "clean": "rm -rf ./node_modules && npm i",
     "build": "./node_modules/.bin/esbuild --platform=node --minify --bundle index.js --outdir=build",
     "start": "node ./build/index.js",
+    "demo": "./node_modules/.bin/esbuild --platform=node --bundle demo/run.js --outfile=build/demo.js && node build/demo.js",
     "test": "node --experimental-vm-modules --input-type=module node_modules/jest/bin/jest.js",
     "coverage": "jest --collect-coverage"
   },

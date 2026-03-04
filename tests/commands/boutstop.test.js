@@ -1,14 +1,14 @@
-import {MSG_COMMAND, register, registerBuilder, build} from "../../src/commands/msg";
+import {BOUTSTOP_COMMAND, register, registerBuilder, build} from "../../src/commands/boutstop";
 
-const EXAMPLE_MSG_TOKENS = [
-    'RED', 'Red table come home'
+const EXAMPLE_BOUTSTOP_TOKENS = [
+    'RED'
 ];
 
 describe('#register', () => {
     test('basic registration should work', () => {
         const commandDictionary = {};
         register(commandDictionary);
-        const result = commandDictionary[MSG_COMMAND];
+        const result = commandDictionary[BOUTSTOP_COMMAND];
         expect(
             typeof result
         ).toEqual(
@@ -18,7 +18,7 @@ describe('#register', () => {
 });
 
 describe('#parse', () => {
-    const parse = register({})[MSG_COMMAND];
+    const parse = register({})[BOUTSTOP_COMMAND];
     let parsedResult = null;
 
     describe('invalid length of tokens', function () {
@@ -26,24 +26,24 @@ describe('#parse', () => {
         test('problem with token length for this parser', () => {
             expect(
                 () => {
-                    parse(["HI", "THERE", "MONKEY", "Honey", "BUNCH"]);
+                    parse(["HI", "THERE"]);
                 }
-            ).toThrowError(`Incompatible command tokens for >${MSG_COMMAND}<. Expected 2, Got: 5`);
+            ).toThrowError(`Incompatible command tokens for >${BOUTSTOP_COMMAND}<. Expected 1, Got: 2`);
         });
 
-        test('no issue with token length for this parser', () => {
+        test('no issue with null tokens', () => {
             expect(
                 () => {
                     parse(null);
                 }
-            ).not.toThrowError("Anything");
+            ).toThrowError(`Incompatible command tokens for >${BOUTSTOP_COMMAND}<. Expected 1, Got: 0`);
         });
     });
 
     describe("valid parameters", () => {
-        describe("msg command with a piste and a message", () => {
+        describe("boutstop command with a piste code", () => {
             beforeEach(() => {
-                const tokens = [...EXAMPLE_MSG_TOKENS];
+                const tokens = [...EXAMPLE_BOUTSTOP_TOKENS];
                 parsedResult = parse(tokens);
             });
 
@@ -51,7 +51,7 @@ describe('#parse', () => {
                 expect(
                     parsedResult['command']
                 ).toEqual(
-                    MSG_COMMAND
+                    BOUTSTOP_COMMAND
                 )
             });
 
@@ -59,14 +59,7 @@ describe('#parse', () => {
                 expect(
                     parsedResult['piste']
                 ).toEqual(
-                    "RED"
-                )
-            });
-            test('reads the message received', () => {
-                expect(
-                    parsedResult['message']
-                ).toEqual(
-                    EXAMPLE_MSG_TOKENS[1]
+                    'RED'
                 )
             });
         });
@@ -77,12 +70,12 @@ describe('#registerBuilder', () => {
     test('basic registration should work', () => {
         const builderDictionary = {};
         registerBuilder(builderDictionary);
-        expect(typeof builderDictionary[MSG_COMMAND]).toEqual('function');
+        expect(typeof builderDictionary[BOUTSTOP_COMMAND]).toEqual('function');
     });
 });
 
 describe('#build', () => {
-    test('returns token array with command, piste and message', () => {
-        expect(build({ piste: 'BLUE', message: 'Glove missing' })).toEqual(['MSG', 'BLUE', 'Glove missing']);
+    test('returns token array with command and piste', () => {
+        expect(build({ piste: 'RED' })).toEqual(['BOUTSTOP', 'RED']);
     });
 });

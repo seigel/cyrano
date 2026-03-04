@@ -1,14 +1,14 @@
-import {MSG_COMMAND, register, registerBuilder, build} from "../../src/commands/msg";
+import {REPLACE_COMMAND, register, registerBuilder, build} from "../../src/commands/replace";
 
-const EXAMPLE_MSG_TOKENS = [
-    'RED', 'Red table come home'
+const EXAMPLE_REPLACE_TOKENS = [
+    'RED', 'LEFT', '1'
 ];
 
 describe('#register', () => {
     test('basic registration should work', () => {
         const commandDictionary = {};
         register(commandDictionary);
-        const result = commandDictionary[MSG_COMMAND];
+        const result = commandDictionary[REPLACE_COMMAND];
         expect(
             typeof result
         ).toEqual(
@@ -18,7 +18,7 @@ describe('#register', () => {
 });
 
 describe('#parse', () => {
-    const parse = register({})[MSG_COMMAND];
+    const parse = register({})[REPLACE_COMMAND];
     let parsedResult = null;
 
     describe('invalid length of tokens', function () {
@@ -26,24 +26,24 @@ describe('#parse', () => {
         test('problem with token length for this parser', () => {
             expect(
                 () => {
-                    parse(["HI", "THERE", "MONKEY", "Honey", "BUNCH"]);
+                    parse(["HI", "THERE"]);
                 }
-            ).toThrowError(`Incompatible command tokens for >${MSG_COMMAND}<. Expected 2, Got: 5`);
+            ).toThrowError(`Incompatible command tokens for >${REPLACE_COMMAND}<. Expected 3, Got: 2`);
         });
 
-        test('no issue with token length for this parser', () => {
+        test('no issue with null tokens', () => {
             expect(
                 () => {
                     parse(null);
                 }
-            ).not.toThrowError("Anything");
+            ).toThrowError(`Incompatible command tokens for >${REPLACE_COMMAND}<. Expected 3, Got: 0`);
         });
     });
 
     describe("valid parameters", () => {
-        describe("msg command with a piste and a message", () => {
+        describe("replace command with piste, side, and fencer number", () => {
             beforeEach(() => {
-                const tokens = [...EXAMPLE_MSG_TOKENS];
+                const tokens = [...EXAMPLE_REPLACE_TOKENS];
                 parsedResult = parse(tokens);
             });
 
@@ -51,7 +51,7 @@ describe('#parse', () => {
                 expect(
                     parsedResult['command']
                 ).toEqual(
-                    MSG_COMMAND
+                    REPLACE_COMMAND
                 )
             });
 
@@ -59,14 +59,23 @@ describe('#parse', () => {
                 expect(
                     parsedResult['piste']
                 ).toEqual(
-                    "RED"
+                    'RED'
                 )
             });
-            test('reads the message received', () => {
+
+            test('reads the side', () => {
                 expect(
-                    parsedResult['message']
+                    parsedResult['side']
                 ).toEqual(
-                    EXAMPLE_MSG_TOKENS[1]
+                    'LEFT'
+                )
+            });
+
+            test('reads the fencer number', () => {
+                expect(
+                    parsedResult['fencerNumber']
+                ).toEqual(
+                    '1'
                 )
             });
         });
@@ -77,12 +86,13 @@ describe('#registerBuilder', () => {
     test('basic registration should work', () => {
         const builderDictionary = {};
         registerBuilder(builderDictionary);
-        expect(typeof builderDictionary[MSG_COMMAND]).toEqual('function');
+        expect(typeof builderDictionary[REPLACE_COMMAND]).toEqual('function');
     });
 });
 
 describe('#build', () => {
-    test('returns token array with command, piste and message', () => {
-        expect(build({ piste: 'BLUE', message: 'Glove missing' })).toEqual(['MSG', 'BLUE', 'Glove missing']);
+    test('returns token array with command, piste, side and fencerNumber', () => {
+        expect(build({ piste: 'RED', side: 'LEFT', fencerNumber: '1' }))
+            .toEqual(['REPLACE', 'RED', 'LEFT', '1']);
     });
 });

@@ -1,19 +1,19 @@
 // noinspection SpellCheckingInspection
-export const PING_COMMAND = "PING";
+export const ACK_COMMAND = "ACK";
 const LENGTH = 0;
 
 export const register = (commandDictionary) => {
-    commandDictionary[PING_COMMAND] = parse;
+    commandDictionary[ACK_COMMAND] = parse;
     return commandDictionary;
 }
 
 export const registerBuilder = (builderDictionary) => {
-    builderDictionary[PING_COMMAND] = build;
+    builderDictionary[ACK_COMMAND] = build;
     return builderDictionary;
 }
 
 export const build = ({}) => {
-    return [PING_COMMAND];
+    return [ACK_COMMAND];
 }
 
 const parse = (tokens) => {
@@ -21,10 +21,10 @@ const parse = (tokens) => {
     const length = localTokens.length;
 
     if (length !== LENGTH) {
-        throw new Error(`Incompatible command tokens for >${PING_COMMAND}<. Expected ${LENGTH}, Got: ${length}`);
+        throw new Error(`Incompatible command tokens for >${ACK_COMMAND}<. Expected ${LENGTH}, Got: ${length}`);
     }
 
     return {
-        "command": PING_COMMAND
+        "command": ACK_COMMAND,
     };
 }

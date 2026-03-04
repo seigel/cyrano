@@ -1,4 +1,4 @@
-import {DISP_COMMAND, register} from "../../src/commands/disp";
+import {DISP_COMMAND, register, registerBuilder, build} from "../../src/commands/disp";
 
 const EXAMPLE_DISP_TOKENS = [
         'RED', '24', 'EIM', 'T32', '1', '32', "14:45", "3:00",
@@ -121,47 +121,24 @@ describe('#parse', () => {
 
         describe('right fencer', () => {
             let rightFencer = null;
-            //         "33", " IVANOV Sidor", 'CAN', '', '',
             beforeEach(() => {
                 rightFencer = parsedResult['rightFencer'];
             });
 
             test('right fencer id', () => {
-                expect(
-                    rightFencer["id"]
-                ).toEqual(
-                    "33"
-                )
+                expect(rightFencer["id"]).toEqual("33")
             });
             test('name', () => {
-                expect(
-                    rightFencer["name"]
-                ).toEqual(
-                    " IVANOV Sidor"
-                )
+                expect(rightFencer["name"]).toEqual(" IVANOV Sidor")
             });
             test('team info', () => {
-                expect(
-                    rightFencer["teamInfo"]
-                ).toEqual(
-                    "CAN"
-                )
+                expect(rightFencer["teamInfo"]).toEqual("CAN")
             });
-
             test('team id', () => {
-                expect(
-                    rightFencer["teamId"]
-                ).toEqual(
-                    "rightTeamId"
-                )
+                expect(rightFencer["teamId"]).toEqual("rightTeamId")
             });
-
             test('team Member Name', () => {
-                expect(
-                    rightFencer["teamMemberName"]
-                ).toEqual(
-                    "rightTeamMemberName"
-                )
+                expect(rightFencer["teamMemberName"]).toEqual("rightTeamMemberName")
             });
         });
         describe('left fencer', () => {
@@ -171,42 +148,40 @@ describe('#parse', () => {
             });
 
             test('fencer id', () => {
-                expect(
-                    leftFencer["id"]
-                ).toEqual(
-                    "531"
-                )
+                expect(leftFencer["id"]).toEqual("531")
             });
             test('name', () => {
-                expect(
-                    leftFencer["name"]
-                ).toEqual(
-                    "LIMON Jua"
-                )
+                expect(leftFencer["name"]).toEqual("LIMON Jua")
             });
             test('team info', () => {
-                expect(
-                    leftFencer["teamInfo"]
-                ).toEqual(
-                    "FRA"
-                )
+                expect(leftFencer["teamInfo"]).toEqual("FRA")
             });
-
             test('team id', () => {
-                expect(
-                    leftFencer["teamId"]
-                ).toEqual(
-                    "leftTeamId"
-                )
+                expect(leftFencer["teamId"]).toEqual("leftTeamId")
             });
-
             test('team Member Name', () => {
-                expect(
-                    leftFencer["teamMemberName"]
-                ).toEqual(
-                    "leftTeamMemberName"
-                )
+                expect(leftFencer["teamMemberName"]).toEqual("leftTeamMemberName")
             });
         });
     });
 })
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[DISP_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with all 19 elements (command + 18 params)', () => {
+        const result = build({
+            piste: 'RED', eventId: '24', competitionCode: 'EIM', competitionPhase: 'T32',
+            boutOrderInPhase: '1', boutId: '32', beginTime: '14:45', stopwatch: '3:00',
+            rightFencer: { id: '33', name: ' IVANOV Sidor', teamInfo: 'CAN', teamId: 'rightTeamId', teamMemberName: 'rightTeamMemberName' },
+            leftFencer:  { id: '531', name: 'LIMON Jua', teamInfo: 'FRA', teamId: 'leftTeamId', teamMemberName: 'leftTeamMemberName' },
+        });
+        expect(result).toEqual([DISP_COMMAND, ...EXAMPLE_DISP_TOKENS]);
+    });
+});

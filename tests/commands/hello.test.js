@@ -1,4 +1,4 @@
-import {HELLO_COMMAND, register} from "../../src/commands/hello";
+import {HELLO_COMMAND, register, registerBuilder, build} from "../../src/commands/hello";
 
 const EXAMPLE_DISP_TOKENS = [
     'RED'
@@ -85,6 +85,32 @@ describe('#parse', () => {
                     ""
                 )
             });
+        });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[HELLO_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    describe('with piste code', () => {
+        test('returns token array with command and piste code', () => {
+            expect(build({ pisteCode: 'RED' })).toEqual(['HELLO', 'RED']);
+        });
+    });
+
+    describe('without piste code', () => {
+        test('returns token array with command only', () => {
+            expect(build({ pisteCode: '' })).toEqual(['HELLO']);
+        });
+
+        test('returns token array with command only when pisteCode is undefined', () => {
+            expect(build({})).toEqual(['HELLO']);
         });
     });
 });
