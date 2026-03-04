@@ -1,40 +1,30 @@
+import * as ack from "./ack.js";
+import * as boutstop from "./boutstop.js";
+import * as broken from "./broken.js";
+import * as deny from "./deny.js";
+import * as disp from "./disp.js";
+import * as getteam from "./getteam.js";
+import * as hello from "./hello.js";
+import * as info from "./info.js";
+import * as msg from "./msg.js";
+import * as nak from "./nak.js";
+import * as next from "./next.js";
+import * as ping from "./ping.js";
+import * as prev from "./prev.js";
+import * as replace from "./replace.js";
+import * as standby from "./standby.js";
+import * as stop from "./stop.js";
+import * as team from "./team.js";
+import * as updated from "./updated.js";
+
 const dictionary = {}
 const builders = {}
-require("./ack").register(dictionary);
-require("./ack").registerBuilder(builders);
-require("./boutstop").register(dictionary);
-require("./boutstop").registerBuilder(builders);
-require("./broken").register(dictionary);
-require("./broken").registerBuilder(builders);
-require("./deny").register(dictionary);
-require("./deny").registerBuilder(builders);
-require("./disp").register(dictionary);
-require("./disp").registerBuilder(builders);
-require("./getteam").register(dictionary);
-require("./getteam").registerBuilder(builders);
-require("./hello").register(dictionary);
-require("./hello").registerBuilder(builders);
-require("./info").register(dictionary);
-require("./info").registerBuilder(builders);
-require("./msg").register(dictionary);
-require("./msg").registerBuilder(builders);
-require("./nak").register(dictionary);
-require("./nak").registerBuilder(builders);
-require("./next").register(dictionary);
-require("./next").registerBuilder(builders);
-require("./ping").register(dictionary);
-require("./ping").registerBuilder(builders);
-require("./prev").register(dictionary);
-require("./prev").registerBuilder(builders);
-require("./replace").register(dictionary);
-require("./replace").registerBuilder(builders);
-require("./standby").register(dictionary);
-require("./standby").registerBuilder(builders);
-require("./stop").register(dictionary);
-require("./stop").registerBuilder(builders);
-require("./team").register(dictionary);
-require("./team").registerBuilder(builders);
-require("./updated").register(dictionary);
-require("./updated").registerBuilder(builders);
+
+const modules = [ack, boutstop, broken, deny, disp, getteam, hello, info, msg, nak, next, ping, prev, replace, standby, stop, team, updated];
+for (const mod of modules) {
+  mod.register(dictionary);
+  mod.registerBuilder(builders);
+}
+
 export default dictionary;
 export { builders };
