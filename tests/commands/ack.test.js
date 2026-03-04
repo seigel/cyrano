@@ -15,7 +15,7 @@ describe('#parse', () => {
     describe('invalid length of tokens', function () {
         test('problem with token length for this parser', () => {
             expect(() => { parse(["HI"]); })
-                .toThrowError(`Incompatible command tokens for >${ACK_COMMAND}<. Expected 0, Got: 1`);
+                .toThrow(`Incompatible command tokens for >${ACK_COMMAND}<. Expected 0, Got: 1`);
         });
         test('no issue with null tokens', () => {
             expect(() => { parse(null); }).not.toThrow();
