@@ -1,4 +1,4 @@
-import {process} from "../../src/protocol/cyrano";
+import {process, compose} from "../../src/protocol/cyrano";
 import {ACK_COMMAND} from "../../src/commands/ack";
 import {BOUTSTOP_COMMAND} from "../../src/commands/boutstop";
 import {BROKEN_COMMAND} from "../../src/commands/broken";
@@ -120,5 +120,23 @@ describe('#process', () => {
 
     test('extract command name for UPDATED', () => {
         expect(process(UPDATED_EXAMPLE)["command"]).toEqual(UPDATED_COMMAND);
+    });
+});
+
+describe('#compose', () => {
+    test('throws for unknown command', () => {
+        expect(() => { compose({ command: 'FOOBAR' }); })
+            .toThrowError("No builder registered for command >FOOBAR<");
+    });
+
+    describe('HELLO round-trip', () => {
+        test('with piste code', () => {
+            expect(compose(process(HELLO_EXAMPLE))).toEqual(HELLO_EXAMPLE);
+        });
+
+        test('without piste code', () => {
+            const bare = '|EFP2|HELLO|';
+            expect(compose(process(bare))).toEqual(bare);
+        });
     });
 });
