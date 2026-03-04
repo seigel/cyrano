@@ -28,7 +28,7 @@
   "homepage": "https://github.com/seigel/cyrano#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
-    "esbuild": "^0.14.36",
+    "esbuild": "^0.25.0",
     "jest": "^27.5.1"
   }
 }
