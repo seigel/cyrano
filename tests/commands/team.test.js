@@ -34,7 +34,7 @@ describe('#parse', () => {
                 () => {
                     parse(["HI", "THERE"]);
                 }
-            ).toThrowError(`Incompatible command tokens for >${TEAM_COMMAND}<. Expected 20, Got: 2`);
+            ).toThrow(`Incompatible command tokens for >${TEAM_COMMAND}<. Expected 20, Got: 2`);
         });
 
         test('no issue with null tokens', () => {
@@ -42,7 +42,7 @@ describe('#parse', () => {
                 () => {
                     parse(null);
                 }
-            ).toThrowError(`Incompatible command tokens for >${TEAM_COMMAND}<. Expected 20, Got: 0`);
+            ).toThrow(`Incompatible command tokens for >${TEAM_COMMAND}<. Expected 20, Got: 0`);
         });
     });
 

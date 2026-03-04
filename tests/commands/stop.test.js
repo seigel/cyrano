@@ -15,10 +15,10 @@ describe('#parse', () => {
     describe('invalid length of tokens', function () {
         test('problem with token length for this parser', () => {
             expect(() => { parse(["HI", "THERE", "MONKEY"]); })
-                .toThrowError(`Incompatible command tokens for >${STOP_COMMAND}<. Expected 0, Got: 3`);
+                .toThrow(`Incompatible command tokens for >${STOP_COMMAND}<. Expected 0, Got: 3`);
         });
         test('no issue with token length for this parser', () => {
-            expect(() => { parse(null); }).not.toThrowError("Anything");
+            expect(() => { parse(null); }).not.toThrow("Anything");
         });
     });
 

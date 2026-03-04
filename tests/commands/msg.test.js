@@ -28,7 +28,7 @@ describe('#parse', () => {
                 () => {
                     parse(["HI", "THERE", "MONKEY", "Honey", "BUNCH"]);
                 }
-            ).toThrowError(`Incompatible command tokens for >${MSG_COMMAND}<. Expected 2, Got: 5`);
+            ).toThrow(`Incompatible command tokens for >${MSG_COMMAND}<. Expected 2, Got: 5`);
         });
 
         test('no issue with token length for this parser', () => {
@@ -36,7 +36,7 @@ describe('#parse', () => {
                 () => {
                     parse(null);
                 }
-            ).not.toThrowError("Anything");
+            ).not.toThrow("Anything");
         });
     });
 

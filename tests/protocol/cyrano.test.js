@@ -41,7 +41,7 @@ describe('#process', () => {
     test('unsupported protocol', () => {
         expect(
             () => { process("|JAMES|DISP|NOT RELEVANT"); }
-        ).toThrowError("Unsupported protocol >JAMES<");
+        ).toThrow("Unsupported protocol >JAMES<");
     });
 
     test('unknown command throws', () => {
@@ -126,7 +126,7 @@ describe('#process', () => {
 describe('#compose', () => {
     test('throws for unknown command', () => {
         expect(() => { compose({ command: 'FOOBAR' }); })
-            .toThrowError("No builder registered for command >FOOBAR<");
+            .toThrow("No builder registered for command >FOOBAR<");
     });
 
     describe('ACK round-trip', () => {

@@ -30,7 +30,7 @@ describe('#parse', () => {
                 () => {
                     parse(["HI", "THERE"]);
                 }
-            ).toThrowError("Incompatible command tokens for >DISP<. Expected 18, Got: 2");
+            ).toThrow("Incompatible command tokens for >DISP<. Expected 18, Got: 2");
         });
 
         test('no tokens provided', () => {
@@ -38,7 +38,7 @@ describe('#parse', () => {
                 () => {
                     parse(null);
                 }
-            ).toThrowError("Incompatible command tokens for >DISP<. Expected 18, Got: 0");
+            ).toThrow("Incompatible command tokens for >DISP<. Expected 18, Got: 0");
         });
     });
 

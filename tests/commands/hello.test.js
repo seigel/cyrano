@@ -29,7 +29,7 @@ describe('#parse', () => {
                 () => {
                     parse(["HI", "THERE", "MONKEY"]);
                 }
-            ).toThrowError("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
+            ).toThrow("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
         });
 
         test('problem with token length for this parser', () => {
@@ -37,7 +37,7 @@ describe('#parse', () => {
                 () => {
                     parse(null);
                 }
-            ).not.toThrowError("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
+            ).not.toThrow("Incompatible command tokens for >HELLO<. Expected 0 or 1, Got: 3");
         });
     });
 
