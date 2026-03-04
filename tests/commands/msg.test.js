@@ -1,5 +1,4 @@
-import {MSG_COMMAND, register} from "../../src/commands/msg";
-import {DISP_COMMAND} from "../../src/commands/disp";
+import {MSG_COMMAND, register, registerBuilder, build} from "../../src/commands/msg";
 
 const EXAMPLE_MSG_TOKENS = [
     'RED', 'Red table come home'
@@ -71,5 +70,19 @@ describe('#parse', () => {
                 )
             });
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[MSG_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command, piste and message', () => {
+        expect(build({ piste: 'BLUE', message: 'Glove missing' })).toEqual(['MSG', 'BLUE', 'Glove missing']);
     });
 });

@@ -7,6 +7,24 @@ export const register = (commandDictionary) => {
     return commandDictionary;
 }
 
+export const registerBuilder = (builderDictionary) => {
+    builderDictionary[TEAM_COMMAND] = build;
+    return builderDictionary;
+}
+
+export const build = ({ piste, side, members, rounds, uniqueId }) => {
+    return [
+        TEAM_COMMAND,
+        piste, side,
+        members[0].id, members[0].name,
+        members[1].id, members[1].name,
+        members[2].id, members[2].name,
+        members[3].id, members[3].name,
+        ...rounds,
+        uniqueId,
+    ];
+}
+
 const parse = (tokens) => {
     const localTokens = tokens || [];
     const length = localTokens.length;

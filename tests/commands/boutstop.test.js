@@ -1,4 +1,4 @@
-import {BOUTSTOP_COMMAND, register} from "../../src/commands/boutstop";
+import {BOUTSTOP_COMMAND, register, registerBuilder, build} from "../../src/commands/boutstop";
 
 const EXAMPLE_BOUTSTOP_TOKENS = [
     'RED'
@@ -63,5 +63,19 @@ describe('#parse', () => {
                 )
             });
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[BOUTSTOP_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command and piste', () => {
+        expect(build({ piste: 'RED' })).toEqual(['BOUTSTOP', 'RED']);
     });
 });

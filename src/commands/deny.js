@@ -7,6 +7,15 @@ export const register = (commandDictionary) => {
     return commandDictionary;
 }
 
+export const registerBuilder = (builderDictionary) => {
+    builderDictionary[DENY_COMMAND] = build;
+    return builderDictionary;
+}
+
+export const build = ({ reason }) => {
+    return [DENY_COMMAND, reason];
+}
+
 const parse = (tokens) => {
     const localTokens = tokens || [];
     const length = localTokens.length;

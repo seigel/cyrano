@@ -1,4 +1,4 @@
-import {TEAM_COMMAND, register} from "../../src/commands/team";
+import {TEAM_COMMAND, register, registerBuilder, build} from "../../src/commands/team";
 
 const EXAMPLE_TEAM_TOKENS = [
     'RED', 'LEFT',
@@ -106,5 +106,31 @@ describe('#parse', () => {
         test('reads the unique id', () => {
             expect(parsedResult['uniqueId']).toEqual('435533');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[TEAM_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with all 21 elements (command + 20 params)', () => {
+        const result = build({
+            piste: 'RED',
+            side: 'LEFT',
+            members: [
+                { id: '234', name: 'IVANOV Fedor' },
+                { id: '542', name: 'PETROV Ivan' },
+                { id: '43',  name: 'SIDOROV Evgeny' },
+                { id: '2',   name: 'OH Semen' },
+            ],
+            rounds: ['1', '2', '3', '2', '1', '3', '3', '1', '2'],
+            uniqueId: '435533',
+        });
+        expect(result).toEqual([TEAM_COMMAND, ...EXAMPLE_TEAM_TOKENS]);
     });
 });

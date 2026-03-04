@@ -1,4 +1,4 @@
-import {PREV_COMMAND, register} from "../../src/commands/prev";
+import {PREV_COMMAND, register, registerBuilder, build} from "../../src/commands/prev";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -33,5 +33,19 @@ describe('#parse', () => {
         test('reads the piste', () => {
             expect(parsedResult['piste']).toEqual('1');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[PREV_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command and piste', () => {
+        expect(build({ piste: '1' })).toEqual(['PREV', '1']);
     });
 });

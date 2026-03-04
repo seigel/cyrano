@@ -1,4 +1,4 @@
-import {NAK_COMMAND, register} from "../../src/commands/nak";
+import {NAK_COMMAND, register, registerBuilder, build} from "../../src/commands/nak";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -29,5 +29,19 @@ describe('#parse', () => {
         test('has the command in the result', () => {
             expect(parsedResult['command']).toEqual(NAK_COMMAND);
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[NAK_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command only', () => {
+        expect(build({})).toEqual(['NAK']);
     });
 });

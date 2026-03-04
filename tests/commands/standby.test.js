@@ -1,4 +1,4 @@
-import {STANDBY_COMMAND, register} from "../../src/commands/standby";
+import {STANDBY_COMMAND, register, registerBuilder, build} from "../../src/commands/standby";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -33,5 +33,19 @@ describe('#parse', () => {
         test('reads the piste', () => {
             expect(parsedResult['piste']).toEqual('FINAL');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[STANDBY_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command and piste', () => {
+        expect(build({ piste: 'FINAL' })).toEqual(['STANDBY', 'FINAL']);
     });
 });

@@ -7,6 +7,15 @@ export const register = (commandDictionary) => {
     return commandDictionary;
 }
 
+export const registerBuilder = (builderDictionary) => {
+    builderDictionary[NEXT_COMMAND] = build;
+    return builderDictionary;
+}
+
+export const build = ({ piste }) => {
+    return [NEXT_COMMAND, piste];
+}
+
 const parse = (tokens) => {
     const localTokens = tokens || [];
     const length = localTokens.length;

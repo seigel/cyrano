@@ -7,6 +7,25 @@ export const register = (commandDictionary) => {
     return commandDictionary;
 }
 
+export const registerBuilder = (builderDictionary) => {
+    builderDictionary[INFO_COMMAND] = build;
+    return builderDictionary;
+}
+
+export const build = ({ piste, eventId, competitionCode, competitionPhase, boutOrderInPhase, roundNumber, boutId, beginTime, stopwatch, state, refereeRemoteControl, priority, callTechnician, callVideoEngineer, callDoctor, callDT, reverse, standby, rightFencer, leftFencer }) => {
+    return [
+        INFO_COMMAND,
+        piste, eventId, competitionCode, competitionPhase, boutOrderInPhase, roundNumber, boutId, beginTime, stopwatch,
+        state, refereeRemoteControl, priority, callTechnician, callVideoEngineer, callDoctor, callDT, reverse, standby,
+        rightFencer.id, rightFencer.name, rightFencer.teamInfo, rightFencer.teamMemberId, rightFencer.teamMemberName,
+        rightFencer.score, rightFencer.yellowCard, rightFencer.redCards, rightFencer.blackCard, rightFencer.usedVideo,
+        rightFencer.lamp, rightFencer.whiteLamp,
+        leftFencer.id, leftFencer.name, leftFencer.teamInfo, leftFencer.teamMemberId, leftFencer.teamMemberName,
+        leftFencer.score, leftFencer.yellowCard, leftFencer.redCards, leftFencer.blackCard, leftFencer.usedVideo,
+        leftFencer.lamp, leftFencer.whiteLamp,
+    ];
+}
+
 const parse = (tokens) => {
     const localTokens = tokens || [];
     const length = localTokens.length;

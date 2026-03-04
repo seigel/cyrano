@@ -1,4 +1,4 @@
-import {REPLACE_COMMAND, register} from "../../src/commands/replace";
+import {REPLACE_COMMAND, register, registerBuilder, build} from "../../src/commands/replace";
 
 const EXAMPLE_REPLACE_TOKENS = [
     'RED', 'LEFT', '1'
@@ -79,5 +79,20 @@ describe('#parse', () => {
                 )
             });
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[REPLACE_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command, piste, side and fencerNumber', () => {
+        expect(build({ piste: 'RED', side: 'LEFT', fencerNumber: '1' }))
+            .toEqual(['REPLACE', 'RED', 'LEFT', '1']);
     });
 });

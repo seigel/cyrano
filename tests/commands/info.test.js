@@ -1,4 +1,4 @@
-import {INFO_COMMAND, register} from "../../src/commands/info";
+import {INFO_COMMAND, register, registerBuilder, build} from "../../src/commands/info";
 
 const EXAMPLE_INFO_TOKENS = [
     'RED',          // piste
@@ -166,5 +166,28 @@ describe('#parse', () => {
             test('lamp', () => { expect(leftFencer['lamp']).toEqual('0'); });
             test('white lamp', () => { expect(leftFencer['whiteLamp']).toEqual('0'); });
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[INFO_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with all 43 elements (command + 42 params)', () => {
+        const result = build({
+            piste: 'RED', eventId: '24', competitionCode: 'EIM', competitionPhase: 'T32',
+            boutOrderInPhase: '1', roundNumber: '1', boutId: '32', beginTime: '14:45', stopwatch: '3:00',
+            state: 'F', refereeRemoteControl: '0', priority: 'N',
+            callTechnician: '0', callVideoEngineer: '0', callDoctor: '0', callDT: '0',
+            reverse: '0', standby: '0',
+            rightFencer: { id: '33', name: 'IVANOV Sidor', teamInfo: 'RUS', teamMemberId: '', teamMemberName: '', score: '5', yellowCard: '0', redCards: '0', blackCard: '0', usedVideo: '0', lamp: '1', whiteLamp: '0' },
+            leftFencer:  { id: '531', name: 'LIMON Jua', teamInfo: 'FRA', teamMemberId: '', teamMemberName: '', score: '3', yellowCard: '1', redCards: '0', blackCard: '0', usedVideo: '1', lamp: '0', whiteLamp: '0' },
+        });
+        expect(result).toEqual([INFO_COMMAND, ...EXAMPLE_INFO_TOKENS]);
     });
 });

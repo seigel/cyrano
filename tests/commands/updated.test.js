@@ -1,4 +1,4 @@
-import {UPDATED_COMMAND, register} from "../../src/commands/updated";
+import {UPDATED_COMMAND, register, registerBuilder, build} from "../../src/commands/updated";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -36,5 +36,19 @@ describe('#parse', () => {
         test('reads the competition code', () => {
             expect(parsedResult['competitionCode']).toEqual('EIM');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[UPDATED_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command, eventId and competitionCode', () => {
+        expect(build({ eventId: '23', competitionCode: 'EIM' })).toEqual(['UPDATED', '23', 'EIM']);
     });
 });

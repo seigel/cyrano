@@ -1,4 +1,4 @@
-import {NEXT_COMMAND, register} from "../../src/commands/next";
+import {NEXT_COMMAND, register, registerBuilder, build} from "../../src/commands/next";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -33,5 +33,19 @@ describe('#parse', () => {
         test('reads the piste', () => {
             expect(parsedResult['piste']).toEqual('RED');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[NEXT_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command and piste', () => {
+        expect(build({ piste: 'RED' })).toEqual(['NEXT', 'RED']);
     });
 });

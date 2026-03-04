@@ -1,4 +1,4 @@
-import {GETTEAM_COMMAND, register} from "../../src/commands/getteam";
+import {GETTEAM_COMMAND, register, registerBuilder, build} from "../../src/commands/getteam";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -36,5 +36,19 @@ describe('#parse', () => {
         test('reads the side', () => {
             expect(parsedResult['side']).toEqual('LEFT');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[GETTEAM_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command, piste and side', () => {
+        expect(build({ piste: 'RED', side: 'LEFT' })).toEqual(['GETTEAM', 'RED', 'LEFT']);
     });
 });

@@ -129,6 +129,42 @@ describe('#compose', () => {
             .toThrowError("No builder registered for command >FOOBAR<");
     });
 
+    describe('ACK round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(ACK_EXAMPLE))).toEqual(ACK_EXAMPLE);
+        });
+    });
+
+    describe('BOUTSTOP round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(BOUTSTOP_EXAMPLE))).toEqual(BOUTSTOP_EXAMPLE);
+        });
+    });
+
+    describe('BROKEN round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(BROKEN_EXAMPLE))).toEqual(BROKEN_EXAMPLE);
+        });
+    });
+
+    describe('DENY round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(DENY_EXAMPLE))).toEqual(DENY_EXAMPLE);
+        });
+    });
+
+    describe('DISP round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(DISP_EXAMPLE))).toEqual(DISP_EXAMPLE);
+        });
+    });
+
+    describe('GETTEAM round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(GETTEAM_EXAMPLE))).toEqual(GETTEAM_EXAMPLE);
+        });
+    });
+
     describe('HELLO round-trip', () => {
         test('with piste code', () => {
             expect(compose(process(HELLO_EXAMPLE))).toEqual(HELLO_EXAMPLE);
@@ -137,6 +173,72 @@ describe('#compose', () => {
         test('without piste code', () => {
             const bare = '|EFP2|HELLO|';
             expect(compose(process(bare))).toEqual(bare);
+        });
+    });
+
+    describe('INFO round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(INFO_EXAMPLE))).toEqual(INFO_EXAMPLE);
+        });
+    });
+
+    describe('MSG round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(MSG_EXAMPLE))).toEqual(MSG_EXAMPLE);
+        });
+    });
+
+    describe('NAK round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(NAK_EXAMPLE))).toEqual(NAK_EXAMPLE);
+        });
+    });
+
+    describe('NEXT round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(NEXT_EXAMPLE))).toEqual(NEXT_EXAMPLE);
+        });
+    });
+
+    describe('PING round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(PING_EXAMPLE))).toEqual(PING_EXAMPLE);
+        });
+    });
+
+    describe('PREV round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(PREV_EXAMPLE))).toEqual(PREV_EXAMPLE);
+        });
+    });
+
+    describe('REPLACE round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(REPLACE_EXAMPLE))).toEqual(REPLACE_EXAMPLE);
+        });
+    });
+
+    describe('STANDBY round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(STANDBY_EXAMPLE))).toEqual(STANDBY_EXAMPLE);
+        });
+    });
+
+    describe('STOP round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(STOP_EXAMPLE))).toEqual(STOP_EXAMPLE);
+        });
+    });
+
+    describe('TEAM round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(TEAM_EXAMPLE))).toEqual(TEAM_EXAMPLE);
+        });
+    });
+
+    describe('UPDATED round-trip', () => {
+        test('round-trips correctly', () => {
+            expect(compose(process(UPDATED_EXAMPLE))).toEqual(UPDATED_EXAMPLE);
         });
     });
 });

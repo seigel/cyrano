@@ -1,4 +1,4 @@
-import {DENY_COMMAND, register} from "../../src/commands/deny";
+import {DENY_COMMAND, register, registerBuilder, build} from "../../src/commands/deny";
 
 describe('#register', () => {
     test('basic registration should work', () => {
@@ -33,5 +33,19 @@ describe('#parse', () => {
         test('reads the reason', () => {
             expect(parsedResult['reason']).toEqual('Piste does not exists');
         });
+    });
+});
+
+describe('#registerBuilder', () => {
+    test('basic registration should work', () => {
+        const builderDictionary = {};
+        registerBuilder(builderDictionary);
+        expect(typeof builderDictionary[DENY_COMMAND]).toEqual('function');
+    });
+});
+
+describe('#build', () => {
+    test('returns token array with command and reason', () => {
+        expect(build({ reason: 'Piste does not exists' })).toEqual(['DENY', 'Piste does not exists']);
     });
 });
